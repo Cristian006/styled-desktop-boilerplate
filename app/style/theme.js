@@ -3,7 +3,7 @@ import { createMuiTheme } from '@material-ui/core';
 // if no theme settings present
 // this will be the default theme config for application
 export const defaultThemeConfig = {
-  paletteType: 'light',
+  paletteType: 'dark',
   accentColor: '#e53935',
 };
 
@@ -12,6 +12,7 @@ const DarkTheme = {
   paletteType: 'dark',
   // add application specific theming attributes here...
   barBackgroundColor: '#141A1F',
+  toolbarBackgroundColor: '#30373D',
   appBackgroundColor: '#1A2128',
   barColor: '#A6B5C5',
 };
@@ -23,31 +24,46 @@ const LightTheme = {
   // add light theme specific overrides here...
   barBackgroundColor: '#eeeeee',
   barColor: undefined, // use default barColor for light theme set by frameless-titlebar
+  toolbarBackgroundColor: '#e0e0e0',
+  appBackgroundColor: '#fafafa',
 };
 
 // Material UI specific theme overrides with current theme
-export const MuiTheme = (theme) => {
-  return createMuiTheme({
-    titlebarTheme: {
-      // adding in frameless-titlebar specific theming
-      barTheme: theme.paletteType,
-      menuHighlightColor: theme.accentColor,
+export const MuiTheme = theme => createMuiTheme({
+  titlebarTheme: {
+    // adding in frameless-titlebar specific theming
+    barTheme: theme.paletteType,
+    barBackgroundColor: theme.barBackgroundColor,
+    menuHighlightColor: theme.accentColor,
+  },
+  // not insanely necessary but just to have it at
+  // the root of the theme object for easy access ;)
+  accentColor: theme.accentColor,
+  typography: {
+    useNextVariants: true,
+  },
+  overrides: {
+    MuiToolbar: {
+      root: {
+        backgroundColor: theme.toolbarBackgroundColor,
+      }
+    }
+  },
+  palette: {
+    type: theme.paletteType,
+    primary: {
+      dark: theme.barBackgroundColor,
+      main: theme.toolbarBackgroundColor,
     },
-    // not insanely necessary but just to have it at
-    // the root of the theme object for easy access ;)
-    accentColor: theme.accentColor,
-    appBackground: theme.appBackgroundColor,
-    typography: {
-      useNextVariants: true,
+    background: {
+      default: theme.appBackgroundColor,
+      paper: theme.toolbarBackgroundColor,
     },
-    palette: {
-      type: theme.paletteType,
-      primary: {
-        main: theme.accentColor,
-      },
+    secondary: {
+      main: theme.accentColor,
     },
-  })
-};
+  },
+});
 
 export const getTheme = ({paletteType, accentColor}) => {
   // create muiTheme

@@ -5,6 +5,7 @@ import settings from 'electron-settings';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { getTheme, defaultThemeConfig } from '../style/theme';
 import Icon from '../app.png';
+import { MuiThemeProvider } from '@material-ui/core';
 
 type Props = {
   children: Node
@@ -28,8 +29,8 @@ const GlobalStyle = createGlobalStyle`
     position: relative;
     height: 100vh;
     overflow-y: hidden;
-    background-color: ${props => props.theme.appBackground};
-    color: #A6B5C5;
+    background-color: ${props => props.theme.palette.background.default};
+    color: ${props => props.theme.palette.text.primary};
     font-family: Arial, Helvetica, Helvetica Neue, serif;
   }
 
@@ -49,7 +50,7 @@ export default class App extends React.Component<Props> {
     super(props);
     this.themeObserver = null;
     this.state = {
-      currentTheme: getTheme(settings.get('settings.theme', defaultThemeConfig)),
+      currentTheme: getTheme(defaultThemeConfig || settings.get('settings.theme', defaultThemeConfig)),
     };
   }
 
@@ -73,19 +74,21 @@ export default class App extends React.Component<Props> {
     const { currentTheme } = this.state;
     const { titlebarTheme } = currentTheme;
     return (
-      <ThemeProvider theme={currentTheme}>
-        <Fragment>
-          <Titlebar
-            app="Project Lio"
-            icon={Icon}
-            theme={titlebarTheme}
-          />
-          <GlobalStyle /> 
-          <Container>
-            {this.props.children}
-          </Container>
-        </Fragment>
-      </ThemeProvider>
+      <MuiThemeProvider theme={currentTheme}>
+        <ThemeProvider theme={currentTheme}>
+          <Fragment>
+            <Titlebar
+              app="Project Lio"
+              icon={Icon}
+              theme={titlebarTheme}
+            />
+            <GlobalStyle /> 
+            <Container>
+              {this.props.children}
+            </Container>
+          </Fragment>
+        </ThemeProvider>
+      </MuiThemeProvider>
     );
   }
 }
