@@ -3,9 +3,9 @@ import React, { Fragment, Node } from 'react';
 import Titlebar from 'frameless-titlebar';
 import settings from 'electron-settings';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { MuiThemeProvider } from '@material-ui/core';
 import { getTheme, defaultThemeConfig } from '../style/theme';
 import Icon from '../app.png';
-import { MuiThemeProvider } from '@material-ui/core';
 
 type Props = {
   children: Node
@@ -50,7 +50,7 @@ export default class App extends React.Component<Props> {
     super(props);
     this.themeObserver = null;
     this.state = {
-      currentTheme: getTheme(defaultThemeConfig || settings.get('settings.theme', defaultThemeConfig)),
+      currentTheme: getTheme(settings.get('settings.theme', defaultThemeConfig)),
     };
   }
 
