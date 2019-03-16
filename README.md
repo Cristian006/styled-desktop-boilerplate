@@ -1,3 +1,16 @@
+# Styled Electron React Boilerplate
+
+> Just a boilerplate ready to be themed. I found myself needing a similar setup for multiple applications.
+
+* [Electron React Boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate)
+* [styled-components](https://github.com/styled-components/styled-components)
+* [MaterialUI](https://github.com/mui-org/material-ui) + MaterialUI/Icons
+* [electron-settings](https://github.com/nathanbuchar/electron-settings)
+* [frameless-titlebar](https://github.com/cristian006/frameless-titlebar)
+
+To theme the application I use a combo of styled-components' `ThemeProvider` & MaterialUI's `MuiThemeProvider` with
+some additional properties added to the base theme object provided by `createMuiTheme()` in order to then style/customize the application's frameless-titlebar.
+
 <div align="center">
 <br>
 <img src="https://user-images.githubusercontent.com/12294525/44203609-77d50800-a147-11e8-98f0-f2403527abdc.png" width="600px" />
