@@ -5,7 +5,7 @@ import settings from 'electron-settings';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { MuiThemeProvider } from '@material-ui/core';
 import { getTheme, defaultThemeConfig } from '../style/theme';
-import Icon from '../app.png';
+import Icon from '../../resources/icon.png';
 
 type Props = {
   children: Node
@@ -78,7 +78,7 @@ export default class App extends React.Component<Props> {
         <ThemeProvider theme={currentTheme}>
           <Fragment>
             <Titlebar
-              app="Project Lio"
+              app="Electron Boilerplate"
               icon={Icon}
               theme={titlebarTheme}
             />
