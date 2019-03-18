@@ -13,6 +13,7 @@
 import { app, BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import settings from 'electron-settings';
+import windowStateKeeper from 'electron-window-state';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { LightTheme, DarkTheme } from './style/theme';
@@ -69,18 +70,28 @@ app.on('ready', async () => {
     await installExtensions();
   }
 
+  const mainWindowState = windowStateKeeper({
+    defaultWidth: 1024,
+    defaultHeight: 728
+  });
+
   let darkMode = (settings.get('settings.theme.paletteType', 'dark') === 'dark');
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728,
+    x: mainWindowState.x,
+    y: mainWindowState.y,
+    width: mainWindowState.width,
+    height: mainWindowState.height,
     minWidth: 400,
     minHeight: 300,
     frame: false,
     titleBarStyle: 'hidden',
     backgroundColor: darkMode ? DarkTheme.appBackgroundColor : LightTheme.appBackgroundColor
   });
+
+  // manage mainWindow's state
+  mainWindowState.manage(mainWindow);
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
