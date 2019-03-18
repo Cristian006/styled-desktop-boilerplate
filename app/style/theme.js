@@ -8,7 +8,7 @@ export const defaultThemeConfig = {
 };
 
 // Dark Theme is treated as the base theme object for application
-const DarkTheme = {
+export const DarkTheme = {
   paletteType: 'dark',
   // add application specific theming attributes here...
   barBackgroundColor: '#141A1F',
@@ -18,7 +18,7 @@ const DarkTheme = {
 };
 
 // Light Theme is just an override of the base dark theme
-const LightTheme = {
+export const LightTheme = {
   ...DarkTheme,
   paletteType: 'light',
   // add light theme specific overrides here...

@@ -82,7 +82,7 @@ export default class App extends React.Component<Props> {
               icon={Icon}
               theme={titlebarTheme}
             />
-            <GlobalStyle /> 
+            <GlobalStyle />
             <Container>
               {this.props.children}
             </Container>

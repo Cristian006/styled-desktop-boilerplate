@@ -12,8 +12,10 @@
  */
 import { app, BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
+import settings from 'electron-settings';
 import log from 'electron-log';
 import MenuBuilder from './menu';
+import { LightTheme, DarkTheme } from './style/theme';
 
 export default class AppUpdater {
   constructor() {
@@ -67,6 +69,8 @@ app.on('ready', async () => {
     await installExtensions();
   }
 
+  let darkMode = (settings.get('settings.theme.paletteType', 'dark') === 'dark');
+
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
@@ -75,6 +79,7 @@ app.on('ready', async () => {
     minHeight: 300,
     frame: false,
     titleBarStyle: 'hidden',
+    backgroundColor: darkMode ? DarkTheme.appBackgroundColor : LightTheme.appBackgroundColor
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
